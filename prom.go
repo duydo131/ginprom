@@ -206,7 +206,7 @@ func New(options ...func(*Prometheus)) *Prometheus {
 	return p
 }
 
-func (p *Prometheus) getRegistererAndGatherer() (prometheus.Registerer, prometheus.Gatherer)  {
+func (p *Prometheus) getRegistererAndGatherer() (prometheus.Registerer, prometheus.Gatherer) {
 	if p.Registry == nil {
 		return prometheus.DefaultRegisterer, prometheus.DefaultGatherer
 	} else {
@@ -250,7 +250,7 @@ func (p *Prometheus) register() {
 			Name:      "requests_total",
 			Help:      "How many HTTP requests processed, partitioned by status code and HTTP method.",
 		},
-		[]string{"code", "method", "handler", "host", "path"},
+		[]string{"status", "method", "handler", "host", "url_rule"},
 	)
 	registerer.MustRegister(p.reqCnt)
 
@@ -258,9 +258,9 @@ func (p *Prometheus) register() {
 		Namespace: p.Namespace,
 		Subsystem: p.Subsystem,
 		Buckets:   p.BucketsSize,
-		Name:      "request_duration",
+		Name:      "request_duration_seconds",
 		Help:      "The HTTP request latency bucket",
-	}, []string{"method", "path"})
+	}, []string{"method", "url_rule"})
 	registerer.MustRegister(p.reqDur)
 
 	p.reqSz = prometheus.NewSummary(
