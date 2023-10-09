@@ -260,7 +260,7 @@ func (p *Prometheus) register() {
 		Buckets:   p.BucketsSize,
 		Name:      "request_duration_seconds",
 		Help:      "The HTTP request latency bucket",
-	}, []string{"method", "url_rule"})
+	}, []string{"method", "status", "url_rule"})
 	registerer.MustRegister(p.reqDur)
 
 	p.reqSz = prometheus.NewSummary(
@@ -313,7 +313,7 @@ func (p *Prometheus) Instrument() gin.HandlerFunc {
 		resSz := float64(c.Writer.Size())
 
 		p.reqCnt.WithLabelValues(status, c.Request.Method, c.HandlerName(), c.Request.Host, path).Inc()
-		p.reqDur.WithLabelValues(c.Request.Method, path).Observe(elapsed)
+		p.reqDur.WithLabelValues(c.Request.Method, status, path).Observe(elapsed)
 		p.reqSz.Observe(float64(reqSz))
 		p.resSz.Observe(resSz)
 	}

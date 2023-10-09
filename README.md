@@ -2,6 +2,8 @@
 
 Gin Prometheus metrics exporter inspired by [github.com/zsais/go-gin-prometheus](https://github.com/zsais/go-gin-prometheus)
 
+This repo fork from [https://github.com/thanhpd-teko/ginprom](https://github.com/thanhpd-teko/ginprom)
+
 [![Sourcegraph](https://sourcegraph.com/github.com/Depado/ginprom/-/badge.svg)](https://sourcegraph.com/github.com/Depado/ginprom?badge)
 ![Go Version](https://img.shields.io/badge/go-latest-brightgreen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Depado/ginprom)](https://goreportcard.com/report/github.com/Depado/ginprom)

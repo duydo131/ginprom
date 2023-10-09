@@ -82,7 +82,7 @@ func TestEngine(t *testing.T) {
 	unregister(p)
 }
 
-func TestRegistry(t *testing.T)  {
+func TestRegistry(t *testing.T) {
 	registry := prometheus.NewRegistry()
 
 	p := New(Registry(registry))
@@ -155,7 +155,7 @@ func TestInstrument(t *testing.T) {
 	p := New(Engine(r))
 	r.Use(p.Instrument())
 	path := "/user/:id"
-	lpath := fmt.Sprintf(`path="%s"`, path)
+	lpath := fmt.Sprintf(`url_rule="%s"`, path)
 
 	r.GET(path, func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"id": c.Param("id")})
@@ -185,7 +185,7 @@ func TestThreadedInstrument(t *testing.T) {
 	p := New(Engine(r))
 	r.Use(p.Instrument())
 	path := "/user/:id"
-	lpath := fmt.Sprintf(`path="%s"`, path)
+	lpath := fmt.Sprintf(`url_rule="%s"`, path)
 
 	r.GET(path, func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"id": c.Param("id")})
@@ -386,7 +386,7 @@ func TestInstrumentCustomMetricsErrors(t *testing.T) {
 	unregister(p)
 }
 
-func TestMultipleGinWithDifferentRegistry(t *testing.T)  {
+func TestMultipleGinWithDifferentRegistry(t *testing.T) {
 	// with different registries we don't panic because of multiple metric registration attempt
 	r1 := gin.New()
 	p1 := New(Engine(r1), Registry(prometheus.NewRegistry()))
